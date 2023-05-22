@@ -1,5 +1,5 @@
-const { testFindingNemo } = require('./Section3/findingNemo');
+//const { driver } = require('./Section4/commonItems');
 
-const { driver } = require('./Section4/commonItems')
+const { driver } = require('./Section6/arrays')
 
 driver();
