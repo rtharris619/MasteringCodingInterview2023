@@ -1,12 +1,5 @@
 function driver() {
-    const newArray = new MyArray();
-    newArray.push('hey');
-    newArray.push('you');
-
-    newArray.push('!');
-    newArray.delete(1);
-
-    console.log(newArray);
+    testMergeSortedArrays();
 }
 
 function basics() {
@@ -21,6 +14,17 @@ function basics() {
     strings.splice(2, 0, 'alien'); // O(n)
 
     console.log(strings);
+}
+
+function testCustomArray() {
+    const newArray = new MyArray();
+    newArray.push('hey');
+    newArray.push('you');
+
+    newArray.push('!');
+    newArray.delete(1);
+
+    console.log(newArray);
 }
 
 class MyArray {
@@ -58,6 +62,67 @@ class MyArray {
         delete this.data[this.length - 1];
         this.length--;
     }
+}
+
+function reverse(str) {
+    if (!str || str.length < 2 || typeof str !== 'string') {
+        return 'Not a valid string';
+    }
+
+    const backwards = [];
+    const totalItems = str.length - 1;
+    for (let i = totalItems; i >= 0; i--) {
+        backwards.push(str[i]);
+    }
+
+    return backwards.join('');
+}
+
+function reverse2(str) {
+    return str.split('').reverse().join('');
+}
+
+const reverse3 = str => [...str].reverse().join('');
+
+function testReversingString() {
+    let result = reverse('Hi My name is Ryan');
+    console.log(result);
+
+    result = reverse2('Hi My name is Ryan');
+    console.log(result);
+
+    result = reverse3('Hi My name is Ryan');
+    console.log(result);
+}
+
+function mergeSortedArrays(arr1, arr2) {
+    const mergedArray = [];
+    let array1Index = 0;
+    let array2Index = 0;
+    let arr1Item = arr1[array1Index];
+    let arr2Item = arr2[array2Index];
+
+    array1Index++;
+    array2Index++;
+    
+    while (arr1Item || arr2Item) {
+        if (!arr2Item || arr1Item < arr2Item) {
+            mergedArray.push(arr1Item);
+            arr1Item = arr1[array1Index];
+            array1Index++;
+        } else {
+            mergedArray.push(arr2Item);
+            arr2Item = arr2[array2Index];
+            array2Index++;
+        }
+    }
+
+    return mergedArray;
+}
+
+function testMergeSortedArrays() {
+    let result = mergeSortedArrays([0, 3, 4, 31], [4, 6, 30]);
+    console.log(result);
 }
 
 module.exports = {driver};
