@@ -1,5 +1,4 @@
-//const { driver } = require('./Section4/commonItems');
 
-const { driver } = require('./Section6/arrays')
+const { driver } = require('./Section7/hashTables');
 
 driver();
