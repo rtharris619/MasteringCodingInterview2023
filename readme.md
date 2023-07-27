@@ -9,3 +9,6 @@ Arrays
 
 Section 7:
 Hash Tables
+
+Section 8:
+Linked Lists
