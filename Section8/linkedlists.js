@@ -37,6 +37,67 @@ class LinkedList {
 
         return this;
     }
+
+    // O(n)
+    insert(index, value) {        
+
+        if (index === 0) {
+            this.prepend(value);
+            return;
+        }
+
+        if (index >= this.length - 1) {
+            this.append(value);
+            return;
+        }
+
+        const newNode = new Node(value);
+
+        const leaderNode = this.getNodeAtIndex(index - 1);
+        const trailingNode = leaderNode.next;
+
+        leaderNode.next = newNode;
+        newNode.next = trailingNode;
+
+        this.length++;
+    }
+
+    // O(n)
+    remove(index) {
+
+        const leaderNode = this.getNodeAtIndex(index - 1);
+        const deleteNode = leaderNode.next;
+
+        leaderNode.next = deleteNode.next;
+
+        this.length--;
+    }
+
+    // O(n)
+    getNodeAtIndex(index) {
+        let counter = 0;
+        let currentNode = this.head;
+
+        while (counter !== index) {
+            currentNode = currentNode.next;
+            counter++;
+        }
+
+        return currentNode;
+    }
+
+    // O(n)
+    printList() {
+        const values = [];
+        let currentNode = this.head;
+
+        while (currentNode) {
+            values.push(currentNode.value);
+            currentNode = currentNode.next;
+        }
+
+        console.log(values);        
+    }
 }
 
 function test() {
@@ -47,7 +108,14 @@ function test() {
 
     let prepend1 = myLinkedList.prepend(1);
 
-    console.log(prepend1);
+    myLinkedList.insert(2, 99);
+    myLinkedList.insert(20, 88);
+
+    myLinkedList.printList();
+
+    myLinkedList.remove(2);
+
+    myLinkedList.printList();
 }
 
 module.exports = {driver};
