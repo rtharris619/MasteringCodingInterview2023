@@ -28,6 +28,7 @@ class DoublyLinkedList {
         this.length++;
     }
 
+    // O(1)
     prepend(value) {
         let newNode = new Node(value);
 
@@ -41,6 +42,62 @@ class DoublyLinkedList {
         return this;
     }
 
+    // O(n)
+    insert(index, value) {
+    
+        if (index == 0) {
+            this.prepend(value);
+            return;
+        }
+
+        if (index >= this.length - 1) {
+            this.append(value);
+            return;
+        }
+
+        let newNode = new Node(value);
+
+        let leader = this.getNodeAtIndex(index - 1);
+        let follower = leader.next;
+
+        leader.next = newNode;
+        newNode.prev = leader;
+        newNode.next = follower;
+        follower.prev = newNode;
+
+        this.length++;
+
+        return this;
+    }
+
+    // O(n)
+    remove(index) {
+
+        let leader = this.getNodeAtIndex(index - 1);
+        let follower = leader.next.next;
+
+        leader.next = follower;
+
+        follower.prev = leader;
+        
+        this.length--;
+        return this;
+    }
+
+    // O(n)
+    getNodeAtIndex(index) {
+        let counter = 0;
+        let currentNode = this.head;
+
+        while (index !== counter) {
+            currentNode = currentNode.next;
+            counter++;
+        }
+
+        return currentNode;
+    }
+
+    // O(n)
     printList() {
         let values = [];
 
@@ -61,10 +118,16 @@ function test() {
     myLinkedList.append(16);
     // 10 -> 5 -> 16
 
-    console.log(myLinkedList.prepend(1));
+    myLinkedList.prepend(1);
     // 1 <-> 10 -> 5 -> 16
 
-    //myLinkedList.printList();
+    myLinkedList.insert(2, 99);
+    // 1 <-> 10 <--> 99 <-> 5 <-> 16
+
+    let result = myLinkedList.remove(2);
+    console.log(result);
+
+    myLinkedList.printList();
 }
 
 module.exports = {driver}
